@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import argparse
 from collections import namedtuple
 import math
 
+
 def dist(a,b):
-    """The dist function calculates the distance between two atoms via euclidian calcul."""
+    """The dist function calculates the distance between two atoms via euclidian calculation."""
     x1=a.x
     x2=b.x
     y1=a.y
@@ -16,19 +16,6 @@ def dist(a,b):
     z2=b.z
     distance = math.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
     return distance
-
-
-# if len(sys.argv)< 2:
-#     print("Précisez une action en paramètre")
-#     sys.exit(1)
-#
-# action = sys.argv[1]
-# if action == "start":
-#     print("on start")
-# else:
-#     print ("Je ne connais pas cette action")
-# print(sys.argv)
-
 
 class Atom(namedtuple('ligne_Atom','ATOM num_atom typ_atom aa chain res_number ACha x y z occupancy temp element charge')):
     """The Atom class is used to stock atom objects, along with their variables, which are :
@@ -45,33 +32,37 @@ class Atom(namedtuple('ligne_Atom','ATOM num_atom typ_atom aa chain res_number A
         -element : element from the Mendeleiev table the atom is of
         -charge : chépu"""
     #ah qu'il est beau le docstring, accessible avec machin.__doc__
-#probablement là que je mettrai mes fonctions en rapport avec l'extraction primaire
     pass
 
 pdb = open("6pa8.pdb", "r")
 #empêcher d'ouvrir autre chose que du .pdb !!
 
-list = []
 
-for line in pdb:
+def read(input):
+    list = []
+    pdb = open(input.name, 'r')
 
-    if line[:6].strip() == 'ATOM':
-        file = Atom(line[0:6].strip(),
-                    int(line[6:11].strip()),
-                    line[12:16].strip(),
-                    line[17:20].strip(),
-                    line[21:22].strip(),
-                    int(line[23:26].strip()),
-                    line[26:27].strip(),
-                    float(line[30:38].strip()),
-                    float(line[38:46].strip()),
-                    float(line[46:54].strip()),
-                    float(line[54:60].strip()),
-                    float(line[60:66].strip()),
-                    line[77:78].strip(),
-                    line[78:80].strip())
-        #à changer avec la méthode strip
-        list.append(file)
+    for line in pdb:
+
+        if line[:6].strip() == 'ATOM':
+            file = Atom(line[0:6].strip(),
+                        int(line[6:11].strip()),
+                        line[12:16].strip(),
+                        line[17:20].strip(),
+                        line[21:22].strip(),
+                        int(line[23:26].strip()),
+                        line[26:27].strip(),
+                        float(line[30:38].strip()),
+                        float(line[38:46].strip()),
+                        float(line[46:54].strip()),
+                        float(line[54:60].strip()),
+                        float(line[60:66].strip()),
+                        line[77:78].strip(),
+                        line[78:80].strip())
+            #à changer avec la méthode strip
+            list.append(file)
+            return list
+
 
 print("Le nombre d'atomes s'élève à",len(list))
 
