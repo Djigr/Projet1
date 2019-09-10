@@ -6,16 +6,16 @@ import argparse
 from collections import namedtuple
 import math
 
-def dist(x1,x2,y1,y2,z1,z2):
+def dist(a,b):
     """The dist function calculates the distance between two atoms via euclidian calcul."""
-    X1=int(x1)
-    X2=int(x2)
-    Y1=int(y1)
-    Y2=int(y2)
-    Z1=int(z1)
-    Z2=int(z2)
-    dist = math.sqrt((X1-X2)^2 + (Y1-Y2)^2 + (Z1-Z2)^2)
-    return dist
+    x1=a.x
+    x2=b.x
+    y1=a.y
+    y2=b.y
+    z1=a.z
+    z2=b.z
+    distance = math.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
+    return distance
 
 
 # if len(sys.argv)< 2:
@@ -55,9 +55,21 @@ list = []
 
 for line in pdb:
 
-    if line[:4] == 'ATOM':
-        file = Atom(line[0:4],line[6:11],line[13:16],line[17:20],line[21],line[23:26],line[27],line[31:38],line[39:46],
-                    line[47:54],line[55:60],line[61:66],line[77:78],line[79:80])
+    if line[:6].strip() == 'ATOM':
+        file = Atom(line[0:6].strip(),
+                    int(line[6:11].strip()),
+                    line[12:16].strip(),
+                    line[17:20].strip(),
+                    line[21:22].strip(),
+                    int(line[23:26].strip()),
+                    line[26:27].strip(),
+                    float(line[30:38].strip()),
+                    float(line[38:46].strip()),
+                    float(line[46:54].strip()),
+                    float(line[54:60].strip()),
+                    float(line[60:66].strip()),
+                    line[77:78].strip(),
+                    line[78:80].strip())
         #à changer avec la méthode strip
         list.append(file)
 
@@ -67,13 +79,13 @@ travail = []
 for i in list:
     if i.element == 'S':
         travail.append(i)
-        print(travail)
 
-#for j in travail:
 
-for ii in range(0, len(travail)):
+a = 2.2
+for ii in range(0, len(travail)-1):
     j = travail[ii]
-    k = travail[ii+1]
-    for k in travail:
-        dist(j.x, k.x, j.y, k.y, j.z, k.z)
-        print(dist)
+    for p in range(ii+1,len(travail)-1):
+        k =travail[p]
+        print ('Je compare latome', j.num_atom,'et latom',k.num_atom)
+        if dist(j, k) < a:
+            print('The atoms ', j.num_atom, ' and the atom ', k.num_atom, 'are involved in a disulphide bond bc they are at ', dist(j, k), 'angstroms')
