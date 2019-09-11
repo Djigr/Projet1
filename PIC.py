@@ -34,15 +34,15 @@ class Atom(namedtuple('ligne_Atom','ATOM num_atom typ_atom aa chain res_number A
     #ah qu'il est beau le docstring, accessible avec machin.__doc__
     pass
 
-pdb = open("6pa8.pdb", "r")
-#empêcher d'ouvrir autre chose que du .pdb !!
+#pdb = open("6pa8.pdb", "r")
 
 
+list = []
 def read(input):
-    list = []
-    pdb = open(input.name, 'r')
+    #list = []
+    fich = open(input.name, 'r')
 
-    for line in pdb:
+    for line in fich:
 
         if line[:6].strip() == 'ATOM':
             file = Atom(line[0:6].strip(),
@@ -61,10 +61,7 @@ def read(input):
                         line[78:80].strip())
             #à changer avec la méthode strip
             list.append(file)
-            return list
-
-
-print("Le nombre d'atomes s'élève à",len(list))
+    return list, fich
 
 travail = []
 for i in list:
