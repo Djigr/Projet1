@@ -17,6 +17,7 @@ def dist(a,b):
     distance = math.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
     return distance
 
+
 class Atom(namedtuple('ligne_Atom','ATOM num_atom typ_atom aa chain res_number ACha x y z occupancy temp element charge')):
     """The Atom class is used to stock atom objects, along with their variables, which are :
         -ATOM : just the nature of the line extracted from the .pdb file. Should always be "ATOM"
@@ -34,12 +35,9 @@ class Atom(namedtuple('ligne_Atom','ATOM num_atom typ_atom aa chain res_number A
     #ah qu'il est beau le docstring, accessible avec machin.__doc__
     pass
 
-#pdb = open("6pa8.pdb", "r")
-
 
 list = []
 def read(input):
-    #list = []
     fich = open(input.name, 'r')
 
     for line in fich:
@@ -63,17 +61,22 @@ def read(input):
             list.append(file)
     return list, fich
 
-travail = []
-for i in list:
-    if i.element == 'S':
-        travail.append(i)
+def disulf(list):
+    travail = []
+    for i in list:
+        if i.element == 'S':
+            travail.append(i)
 
-
-a = 2.2
-for ii in range(0, len(travail)-1):
-    j = travail[ii]
-    for p in range(ii+1,len(travail)-1):
-        k =travail[p]
-        print ('Je compare latome', j.num_atom,'et latom',k.num_atom)
-        if dist(j, k) < a:
-            print('The atoms ', j.num_atom, ' and the atom ', k.num_atom, 'are involved in a disulphide bond bc they are at ', dist(j, k), 'angstroms')
+    chose = []
+    a = 2.2
+    for ii in range(0, len(travail)-1):
+        j = travail[ii]
+        for p in range(ii+1,len(travail)-1):
+            k =travail[p]
+            #print ('Je compare latome', j.num_atom,'et latom',k.num_atom)
+            #Au cas où je ne comprends plus la recherche qu'il fait
+            if dist(j, k) < a:
+                print('The atoms', j.num_atom, 'and the atom', k.num_atom, 'are involved in a disulphide bond bc they are at', dist(j, k), 'angstroms')
+                chose.append(j)
+                chose.append(k)
+    return j.num_atom, k.num_atom, dist(j,k), chose

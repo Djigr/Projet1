@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PIC import read
+from PIC import read, disulf
 import argparse
 import sys
 
@@ -9,7 +9,8 @@ parser = argparse.ArgumentParser(prog='command.py', description='Protein Interac
 parser.add_argument('input',
                     nargs='?',
                     type=argparse.FileType('r'))
-parser.add_argument('--disulfide', help='Calculate the number of disulfide bonds in the protein', default=2.2)
+parser.add_argument('--disulfide', action="store_true", help='Calculate the number of disulfide bonds in the protein',
+                    default=2.2)
 
 args = parser.parse_args()
 
@@ -23,12 +24,11 @@ else:
     sys.exit()
 #je pourrais utiliser un raise ValueError("message d'erreur"), mais seulement si j'ai le temps
 
-print(type(pdb))
 list = read(pdb)[0]
-print(type(list))
 print("Le nombre d'atomes s'eleve a",len(list))
-print(list[0])
-print(list)
+disulfures = disulf(list)[3]
+print(disulfures.Atom.num_atom)
+#print(list)
 
 
 #note pour moi-meme : les arguments sont stockés dans args.lenomdel'argument
