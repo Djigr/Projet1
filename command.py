@@ -25,10 +25,14 @@ else:
 #je pourrais utiliser un raise ValueError("message d'erreur"), mais seulement si j'ai le temps
 
 list = read(pdb)[0]
-print("Le nombre d'atomes s'eleve a",len(list))
+print("Le nombre d'atomes s'eleve a",len(list),".")
+
 disulfures = disulf(list)[3]
-print(disulfures.Atom.num_atom)
-#print(list)
+print(disulfures[1].num_atom)
+for i in disulfures:
+    print(i.num_atom)
+print(args)
+
 
 
 #note pour moi-meme : les arguments sont stockés dans args.lenomdel'argument

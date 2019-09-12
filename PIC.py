@@ -6,7 +6,7 @@ from collections import namedtuple
 import math
 
 
-def dist(a,b):
+def dist(a, b):
     """The dist function calculates the distance between two atoms via euclidian calculation."""
     x1=a.x
     x2=b.x
@@ -17,8 +17,23 @@ def dist(a,b):
     distance = math.sqrt((x1-x2)**2 + (y1-y2)**2 + (z1-z2)**2)
     return distance
 
+def calcul_centre_masse(var):
+    summasse = 0
+    XN = 0
+    YN = 0
+    ZN = 0
+    for i in var:
+        summasse += i.masse
+        XN += i.x*i.masse
+        YN += i.y*i.masse
+        ZN += i.z*i.masse
+    Xbar = XN/summasse
+    Ybar = YN/summasse
+    Zbar = ZN/summasse
+    return Xbar, Ybar, Zbar
 
-class Atom(namedtuple('ligne_Atom','ATOM num_atom typ_atom aa chain res_number ACha x y z occupancy temp element charge')):
+class Atom(namedtuple('ligne_Atom',
+                      'ATOM num_atom typ_atom aa chain res_number ACha x y z occupancy temp element charge')):
     """The Atom class is used to stock atom objects, along with their variables, which are :
         -ATOM : just the nature of the line extracted from the .pdb file. Should always be "ATOM"
         -num_atom : gives the unique ID of the atom in the protein
