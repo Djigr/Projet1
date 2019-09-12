@@ -90,8 +90,25 @@ def disulf(list):
             k =travail[p]
             #print ('Je compare latome', j.num_atom,'et latom',k.num_atom)
             #Au cas où je ne comprends plus la recherche qu'il fait
+            bond = []
             if dist(j, k) < a:
-                print('The atoms', j.num_atom, 'and the atom', k.num_atom, 'are involved in a disulphide bond bc they are at', dist(j, k), 'angstroms')
-                chose.append(j)
-                chose.append(k)
-    return j.num_atom, k.num_atom, dist(j,k), chose
+                #print('The atoms', j.num_atom, 'and the atom', k.num_atom, 'are involved in a disulphide bond bc they are at', dist(j, k), 'angstroms')
+                bond.append(j)
+                bond.append(k)
+                bond.append(dist(j,k))
+                chose.append(bond)
+    return chose
+aa_hydroph = ["VAL", "ALA", "LEU", "ILE", "MET", "PHE", "TRP", "PRO", "TYR"]
+
+def hydroph(list):
+    travail = []
+    for i in list:
+        flag=False
+        for j in aa_hydroph:
+            if i.aa == j:
+                flag = True
+        if flag == True:
+            travail.append(i)
+            flag = False
+    print(travail[0] , len(travail))
+

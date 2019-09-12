@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PIC import read, disulf
+from PIC import read, disulf, hydroph
 import argparse
 import sys
 
@@ -11,6 +11,7 @@ parser.add_argument('input',
                     type=argparse.FileType('r'))
 parser.add_argument('--disulfide', action="store_true", help='Calculate the number of disulfide bonds in the protein',
                     default=2.2)
+parser.add_argument('--hydrophobic', action="store_true", help='Calculate the number of hydrophobic bonds in the protein', default = 5)
 
 args = parser.parse_args()
 
@@ -27,10 +28,15 @@ else:
 list = read(pdb)[0]
 print("Le nombre d'atomes s'eleve a",len(list),".")
 
-disulfures = disulf(list)[3]
-print(disulfures[1].num_atom)
-for i in disulfures:
-    print(i.num_atom)
+if args.disulfide == True:
+    print("PONTS DISULFURES")
+    disulfures = disulf(list)
+    for i in disulfures:
+        print(i[0].num_atom, 'et ',i[1].num_atom, 'sont à une distance de ', i[2], 'angstroms.')
+
+if args.hydrophobic == True:
+    print("LIAISONS HYDROPHOBES")
+    hydro = hydroph(list)
 print(args)
 
 
