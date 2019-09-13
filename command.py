@@ -11,7 +11,8 @@ parser.add_argument('input',
                     type=argparse.FileType('r'))
 parser.add_argument('--disulfide', action="store_true", help='Calculate the number of disulfide bonds in the protein',
                     default=2.2)
-parser.add_argument('--hydrophobic', action="store_true", help='Calculate the number of hydrophobic bonds in the protein', default = 5)
+parser.add_argument('--hydrophobic', action="store_true",
+                    help='Calculate the number of hydrophobic bonds in the protein', default = 5)
 
 args = parser.parse_args()
 
@@ -37,6 +38,8 @@ if args.disulfide == True:
 if args.hydrophobic == True:
     print("LIAISONS HYDROPHOBES")
     hydro = hydroph(list)
+    for i in hydro:
+        print(i[0].num_atom, 'et ',i[1].num_atom, 'sont à une distance de ', i[2], 'angstroms.')
 print(args)
 
 

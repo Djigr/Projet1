@@ -98,17 +98,47 @@ def disulf(list):
                 bond.append(dist(j,k))
                 chose.append(bond)
     return chose
-aa_hydroph = ["VAL", "ALA", "LEU", "ILE", "MET", "PHE", "TRP", "PRO", "TYR"]
+
 
 def hydroph(list):
+    aa_hydroph = ["VAL", "ALA", "LEU", "ILE", "MET", "PHE", "TRP", "PRO", "TYR"]
     travail = []
     for i in list:
-        flag=False
+        flag = False
         for j in aa_hydroph:
             if i.aa == j:
                 flag = True
         if flag == True:
             travail.append(i)
             flag = False
-    print(travail[0] , len(travail))
+    print(travail[0], 'fait la longueur',len(travail))
+    chose = []
+    truc = []
+    for i in travail:
+        if len(truc)==0 :
+            truc.append(i)
+        elif truc[0].res_number == i.res_number:
+            truc.append(i)
+        else:
+            chose.append(truc)
+            truc=[]
 
+    print('Ça nous fait ',len(chose),'acides amines dans la prot qui sont hydrophobes.')
+    #Maintenant, trouver la distance entre aa
+    final = []
+    for ii in range(0, len(chose)-1):
+        j = chose[ii]
+        for p in range(ii+1,len(chose)-1):
+            k =chose[p]
+            #print ('Je compare latome', j.num_atom,'et latom',k.num_atom)
+            #Au cas où je ne comprends plus la recherche qu'il fait
+            for imax in j:
+                for ichose in k:
+                    bond = []
+                    if imax.element == "C" and ichose.element == "C":
+                        if dist(imax, ichose)<5:
+                            bond.append(ichose)
+                            bond.append(imax)
+                            bond.append(dist(imax, ichose))
+                            final.append(bond)
+            return final
