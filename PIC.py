@@ -135,10 +135,12 @@ def hydroph(list):
             for imax in j:
                 for ichose in k:
                     bond = []
-                    if imax.element == "C" and ichose.element == "C":
+                    carbon = ["C", "CA", "CB", "CD", "CG"]
+                    if imax.typ_atom in carbon and ichose.typ_atom in carbon:
+                        print(dist(imax, ichose))
                         if dist(imax, ichose)<5:
-                            bond.append(ichose)
                             bond.append(imax)
+                            bond.append(ichose)
                             bond.append(dist(imax, ichose))
                             final.append(bond)
-            return final
+    return final
