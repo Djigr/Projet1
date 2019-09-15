@@ -115,14 +115,19 @@ def hydroph(list):
     chose = []  #liste d'acides aminés
     truc = []    #chaque acide aminé est une liste d'atomes
 
+    fuch = open("listatom.csv", "w")
     for i in travail:
+        line = str(i.num_atom)+","+str(i.x)+","+str(i.y)+","+str(i.z)+"\n"
+        fuch.write(line)
         if len(truc)==0 :
             truc.append(i)
         elif truc[0].res_number == i.res_number:
             truc.append(i)
-        else:
+        elif truc[0].res_number != i.res_number:
             chose.append(truc)
             truc=[]
+            truc.append(i)
+    chose.append(truc)
 
     print('Ça nous fait ',len(chose),'acides amines dans la prot qui sont hydrophobes.')
     fach = open("chose.csv","w")
@@ -139,26 +144,37 @@ def hydroph(list):
     fich = open("calcul.csv", "w")
     for ii in range(0, len(chose)-1):
         j = chose[ii]
-        for p in range(ii+1,len(chose)-1):
+        for p in range(ii+1,len(chose)):
             k =chose[p]
             #print ('Je compare latome', j[0].num_atom,'et latom',k[0].num_atom)
             #Au cas où je ne comprends plus la recherche qu'il fait
             for imax in j:
                 for ichose in k:
                     bond = []
-                    carbon = ["C", "CA", "CB", "CD", "CG", "CG1","CG2", "CD1"]
+                    wrong = ["C", "CA", "O", "OXT", "H", "N",
+                             "H1","H2","H3","HA2","HA3",
+                             "HA","HB2","HB3",
+                             "HG","HG2","HG3",
+                             "HD","HD11","HD12","HD13","HD2","HD21","HD22","HD23","HD3",
+                             "HE1","HE2","HE3"]
 
 
                     dista = dist(imax, ichose)
                     line = str(imax.num_atom)+","+str(imax.res_number)+","+str(ichose.num_atom)+","+str(ichose.res_number)+","+str(dista)+"\n"
                     fich.write(line)
                     #print (imax.num_atom, "et", ichose.num_atom, ":",dist(imax, ichose))
-                    if imax.typ_atom in carbon and ichose.typ_atom in carbon:
+                    if imax.typ_atom not in wrong and ichose.typ_atom not in wrong:
                         if dist(imax, ichose)<5:
-                            bond.append(imax)
-                            bond.append(ichose)
-                            bond.append(dist(imax, ichose))
-                            final.append(bond)
+                            if len(final) == 0:
+                                bond.append(imax)
+                                bond.append(ichose)
+                                bond.append(dist(imax, ichose))
+                                final.append(bond)
+                            elif final[len(final)-1][0].res_number !=imax.res_number and final[len(final)-1][1].res_number !=ichose.res_number:
+                                bond.append(imax)
+                                bond.append(ichose)
+                                bond.append(dist(imax, ichose))
+                                final.append(bond)
     return final
 
 def test(list):
