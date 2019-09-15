@@ -215,18 +215,23 @@ def ionic(list):
             for imax in j:
                 for ichose in k:
                     bond = []
-                    #print (imax.num_atom,"(",imax.aa, "et", ichose.num_atom,"(",ichose.aa, ":",dist(imax, ichose))
-                    if imax.typ_atom in listy and imax.typ_atom in listy:
-                        if (imax.aa in plus and ichose.aa in minus)or(imax.aa in minus and ichose.aa in plus):
-                            if dist(imax, ichose)<6:
-                                if len(final) == 0:
-                                    bond.append(imax)
-                                    bond.append(ichose)
-                                    bond.append(dist(imax, ichose))
-                                    final.append(bond)
-                                elif final[len(final)-1][0].res_number !=imax.res_number and final[len(final)-1][1].res_number !=ichose.res_number:
-                                    bond.append(imax)
-                                    bond.append(ichose)
-                                    bond.append(dist(imax, ichose))
-                                    final.append(bond)
+                    print (imax.num_atom,"(",imax.aa, "et", ichose.num_atom,"(",ichose.aa, ":",dist(imax, ichose))
+                    if imax.typ_atom in listy:
+                        if ichose.typ_atom in listy:
+                            print(imax.num_atom, "(", imax.aa, "et", ichose.num_atom, "(", ichose.aa, ":",
+                                  dist(imax, ichose))
+                            if (imax.aa in plus and ichose.aa in minus)or(imax.aa in minus and ichose.aa in plus):
+                                print(imax.num_atom, "(", imax.aa, "et", ichose.num_atom, "(", ichose.aa, ":",
+                                      dist(imax, ichose))
+                                if dist(imax, ichose)<6:
+                                    if len(final) == 0:
+                                        bond.append(imax)
+                                        bond.append(ichose)
+                                        bond.append(dist(imax, ichose))
+                                        final.append(bond)
+                                    elif final[len(final)-1][0].res_number !=imax.res_number and final[len(final)-1][1].res_number !=ichose.res_number:
+                                        bond.append(imax)
+                                        bond.append(ichose)
+                                        bond.append(dist(imax, ichose))
+                                        final.append(bond)
     return final
