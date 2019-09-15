@@ -177,5 +177,57 @@ def hydroph(list):
                                 final.append(bond)
     return final
 
-def test(list):
-    pass
+def ionic(list):
+    plus = ["ASP","GLU","LYS","ARG","HIS"]
+    travail = []
+    for i in list:
+        flag = False
+        for j in plus:
+            if i.aa == j:
+                flag = True
+        if flag == True:
+            travail.append(i)
+            flag = False
+    print(travail[0], 'fait la longueur', len(travail))
+    chose = []
+    truc = []
+    for i in travail:
+        if len(truc) == 0:
+            truc.append(i)
+        elif truc[0].res_number == i.res_number:
+            truc.append(i)
+        elif truc[0].res_number != i.res_number:
+            chose.append(truc)
+            truc = []
+            truc.append(i)
+    chose.append(truc)
+
+    final = []
+    for ii in range(0, len(chose)-1):
+        j = chose[ii]
+        for p in range(ii,len(chose)):
+            k =chose[p]
+            #print ('Je compare latome', j[0].num_atom,'et latom',k[0].num_atom)
+            #Au cas où je ne comprends plus la recherche qu'il fait
+            for imax in j:
+                for ichose in k:
+                    bond = []
+                    plus = ["ASP","GLU"]
+                    minus = ["LYS","ARG","HIS"]
+                    listy = ["OD2","OE2","NZ","NH2","NE2"]
+
+                    print (imax.num_atom,"(",imax.aa, "et", ichose.num_atom,"(",ichose.aa, ":",dist(imax, ichose))
+                    if imax.typ_atom in listy and imax.typ_atom in listy:
+                        if (imax.aa in plus and ichose.aa in minus)or(imax.aa in minus and ichose.aa in plus):
+                            if dist(imax, ichose)<6:
+                                if len(final) == 0:
+                                    bond.append(imax)
+                                    bond.append(ichose)
+                                    bond.append(dist(imax, ichose))
+                                    final.append(bond)
+                                elif final[len(final)-1][0].res_number !=imax.res_number and final[len(final)-1][1].res_number !=ichose.res_number:
+                                    bond.append(imax)
+                                    bond.append(ichose)
+                                    bond.append(dist(imax, ichose))
+                                    final.append(bond)
+    return final

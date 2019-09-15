@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PIC import read, disulf, hydroph
+from PIC import read, disulf, hydroph, ionic
 import argparse
 import sys
 
@@ -13,6 +13,8 @@ parser.add_argument('--disulfide', action="store_true", help='Calculate the numb
                     default=2.2)
 parser.add_argument('--hydrophobic', action="store_true",
                     help='Calculate the number of hydrophobic bonds in the protein', default = 5)
+parser.add_argument('--ionic', action="store_true",
+                    help="Calculate the number of ionic bonds in the protein")
 
 args = parser.parse_args()
 
@@ -49,6 +51,15 @@ if args.hydrophobic == True:
                i[1].aa + "," + i[0].chain + "\n"
         result.write(line)
         print(i[0].res_number,'(', i[0].aa,')', 'et ',i[1].res_number, 'sont à une distance de ', i[2], 'angstroms.')
+
+if args.ionic == True:
+    print("LIAISONS IONIQUES")
+    io = ionic(list)
+    result.write("IONIC BONDS \n POSITION,RESIDUE,CHAIN, ,POSITION,RESIDUE,CHAIN\n")
+    for i in io:
+        line = str(i[0].res_number) + "," + str(i[0].aa) + "," + str(i[0].chain) + ", ," + str(i[1].res_number) + "," + \
+               i[1].aa + "," + i[0].chain + "\n"
+        result.write(line)
 print(args)
 
 
