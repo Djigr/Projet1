@@ -112,8 +112,9 @@ def hydroph(list):
             travail.append(i)
             flag = False
     print(travail[0], 'fait la longueur',len(travail))
-    chose = []
-    truc = []
+    chose = []  #liste d'acides aminés
+    truc = []    #chaque acide aminé est une liste d'atomes
+
     for i in travail:
         if len(truc)==0 :
             truc.append(i)
@@ -124,23 +125,41 @@ def hydroph(list):
             truc=[]
 
     print('Ça nous fait ',len(chose),'acides amines dans la prot qui sont hydrophobes.')
+    fach = open("chose.csv","w")
+    for i in chose:
+        for j in i:
+            line = str(j.num_atom)+","
+            fach.write(line)
+        saut = "\n"
+        fach.write(saut)
+
+
     #Maintenant, trouver la distance entre aa
     final = []
+    fich = open("calcul.csv", "w")
     for ii in range(0, len(chose)-1):
         j = chose[ii]
         for p in range(ii+1,len(chose)-1):
             k =chose[p]
-            #print ('Je compare latome', j.num_atom,'et latom',k.num_atom)
+            #print ('Je compare latome', j[0].num_atom,'et latom',k[0].num_atom)
             #Au cas où je ne comprends plus la recherche qu'il fait
             for imax in j:
                 for ichose in k:
                     bond = []
-                    carbon = ["C", "CA", "CB", "CD", "CG"]
+                    carbon = ["C", "CA", "CB", "CD", "CG", "CG1","CG2", "CD1"]
+
+
+                    dista = dist(imax, ichose)
+                    line = str(imax.num_atom)+","+str(imax.res_number)+","+str(ichose.num_atom)+","+str(ichose.res_number)+","+str(dista)+"\n"
+                    fich.write(line)
+                    #print (imax.num_atom, "et", ichose.num_atom, ":",dist(imax, ichose))
                     if imax.typ_atom in carbon and ichose.typ_atom in carbon:
-                        print(dist(imax, ichose))
                         if dist(imax, ichose)<5:
                             bond.append(imax)
                             bond.append(ichose)
                             bond.append(dist(imax, ichose))
                             final.append(bond)
     return final
+
+def test(list):
+    pass
