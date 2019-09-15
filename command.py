@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PIC import read, disulf, hydroph, ionic
+from PIC import read, disulf, hydroph, ionic,dist
 import argparse
 import sys
 
@@ -60,6 +60,7 @@ if args.ionic == True:
         line = str(i[0].res_number) + "," + str(i[0].aa) + "," + str(i[0].chain) + ", ," + str(i[1].res_number) + "," + \
                i[1].aa + "," + i[0].chain + "\n"
         result.write(line)
+        print(i[0].res_number, '(', i[0].aa, ')', 'et ', i[1].res_number, 'sont à une distance de ', i[2], 'angstroms.')
 print(args)
 
 

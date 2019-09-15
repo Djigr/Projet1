@@ -203,6 +203,9 @@ def ionic(list):
     chose.append(truc)
 
     final = []
+    plus = ["ASP", "GLU"]
+    minus = ["LYS", "ARG", "HIS"]
+    listy = ["OD2", "OE2", "NZ", "NH2", "NE2"]
     for ii in range(0, len(chose)-1):
         j = chose[ii]
         for p in range(ii,len(chose)):
@@ -212,11 +215,7 @@ def ionic(list):
             for imax in j:
                 for ichose in k:
                     bond = []
-                    plus = ["ASP","GLU"]
-                    minus = ["LYS","ARG","HIS"]
-                    listy = ["OD2","OE2","NZ","NH2","NE2"]
-
-                    print (imax.num_atom,"(",imax.aa, "et", ichose.num_atom,"(",ichose.aa, ":",dist(imax, ichose))
+                    #print (imax.num_atom,"(",imax.aa, "et", ichose.num_atom,"(",ichose.aa, ":",dist(imax, ichose))
                     if imax.typ_atom in listy and imax.typ_atom in listy:
                         if (imax.aa in plus and ichose.aa in minus)or(imax.aa in minus and ichose.aa in plus):
                             if dist(imax, ichose)<6:
