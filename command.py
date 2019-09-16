@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #-*- coding: utf-8 -*-
 
-from PIC import read, disulf, hydroph, ionic,dist
+from PIC import read, disulf, hydroph, ionic,dist, hydrogen
 import argparse
 import sys
 
@@ -15,13 +15,15 @@ parser.add_argument('--hydrophobic', action="store_true",
                     help='Calculate the number of hydrophobic bonds in the protein', default = 5)
 parser.add_argument('--ionic', action="store_true",
                     help="Calculate the number of ionic bonds in the protein")
+parser.add_argument('--hydrogen', action="store_true",
+                    help="Calculate the number of hydrogen bonds in the protein")
 
 args = parser.parse_args()
 
 
 print(args.input.name)
 if args.input.name.endswith('.pdb'):
-    print('Je suis un programme qui fonctionne')
+    print('The file is correct.')
     pdb = args.input
 else:
     print('This is not a .pdb file, please provide one. The expected extension is .pdb.')
@@ -29,7 +31,7 @@ else:
 #je pourrais utiliser un raise ValueError("message d'erreur"), mais seulement si j'ai le temps
 
 list = read(pdb)[0]
-print("Le nombre d'atomes s'eleve a",len(list),".")
+print("The number of atoms is ",len(list),".")
 
 result = open("result.csv","w")
 result.write("Protein Interaction Calculator \n"+args.input.name+"\n")
@@ -57,6 +59,16 @@ if args.ionic == True:
     io = ionic(list)
     result.write("IONIC BONDS \n POSITION,RESIDUE,CHAIN, ,POSITION,RESIDUE,CHAIN\n")
     for i in io:
+        line = str(i[0].res_number) + "," + str(i[0].aa) + "," + str(i[0].chain) + ", ," + str(i[1].res_number) + "," + \
+               i[1].aa + "," + i[0].chain + "\n"
+        result.write(line)
+        print(i[0].res_number, '(', i[0].aa, ')', 'et ', i[1].res_number, 'sont à une distance de ', i[2], 'angstroms.')
+
+if args.hydrogen == True:
+    print("LIAISONS HYDROGENES")
+    hyg = hydrogen(list)
+    result.write("HYDROGEN BONDS \nDONOR,,,,ACCEPTOR,\n POSITION,RESIDUE,CHAIN, ,POSITION,RESIDUE,CHAIN\n")
+    for i in hyg:
         line = str(i[0].res_number) + "," + str(i[0].aa) + "," + str(i[0].chain) + ", ," + str(i[1].res_number) + "," + \
                i[1].aa + "," + i[0].chain + "\n"
         result.write(line)

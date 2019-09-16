@@ -235,3 +235,35 @@ def ionic(list):
                                         bond.append(dist(imax, ichose))
                                         final.append(bond)
     return final
+
+def hydrogen(list):
+    travail = []
+    atoms = ["N", "O"]
+    for i in list:
+        if i.typ_atom in atoms and i.aa != "PRO":
+            travail.append(i)
+
+    chose = []
+    a = 3.5
+    for ii in range(0, len(travail) - 1):
+        j = travail[ii]
+        for p in range(ii + 2, len(travail)):
+            k = travail[p]
+            # print ('Je compare latome', j.num_atom,'et latom',k.num_atom)
+            # Au cas où je ne comprends plus la recherche qu'il fait
+            bond = []
+            if j.typ_atom == "N" and k.typ_atom == "O":
+                if dist(j, k) < a:
+                    print('The atoms', j.num_atom, j.aa, 'and the atom', k.num_atom, k.aa, 'are involved in a hydrogen bond bc they are at', dist(j, k), 'angstroms')
+                    bond.append(j)
+                    bond.append(k)
+                    bond.append(dist(j, k))
+                    chose.append(bond)
+            if j.typ_atom == "O" and k.typ_atom == "N":
+                if dist(j, k) < a:
+                    print('The atoms', k.num_atom, k.aa, 'and the atom', j.num_atom, j.aa, 'are involved in a hydrogen bond bc they are at', dist(j, k), 'angstroms')
+                    bond.append(k)
+                    bond.append(j)
+                    bond.append(dist(j, k))
+                    chose.append(bond)
+    return chose
