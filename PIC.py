@@ -72,7 +72,6 @@ def read(input):
                         float(line[60:66].strip()),
                         line[77:78].strip(),
                         line[78:80].strip())
-            #à changer avec la méthode strip
             list.append(file)
     return list, fich
 
@@ -215,14 +214,14 @@ def ionic(list):
             for imax in j:
                 for ichose in k:
                     bond = []
-                    print (imax.num_atom,"(",imax.aa, "et", ichose.num_atom,"(",ichose.aa, ":",dist(imax, ichose))
+                    #print (imax.num_atom,"(",imax.aa, "et", ichose.num_atom,"(",ichose.aa, ":",dist(imax, ichose))
                     if imax.typ_atom in listy:
                         if ichose.typ_atom in listy:
-                            print(imax.num_atom, "(", imax.aa, "et", ichose.num_atom, "(", ichose.aa, ":",
-                                  dist(imax, ichose))
+                            #print(imax.num_atom, "(", imax.aa, "et", ichose.num_atom, "(", ichose.aa, ":",
+                            #      dist(imax, ichose))
                             if (imax.aa in plus and ichose.aa in minus)or(imax.aa in minus and ichose.aa in plus):
-                                print(imax.num_atom, "(", imax.aa, "et", ichose.num_atom, "(", ichose.aa, ":",
-                                      dist(imax, ichose))
+                                #print(imax.num_atom, "(", imax.aa, "et", ichose.num_atom, "(", ichose.aa, ":",
+                                 #     dist(imax, ichose))
                                 if dist(imax, ichose)<6:
                                     if len(final) == 0:
                                         bond.append(imax)
@@ -254,14 +253,14 @@ def hydrogen(list):
             bond = []
             if j.typ_atom == "N" and k.typ_atom == "O":
                 if dist(j, k) < a:
-                    print('The atoms', j.num_atom, j.aa, 'and the atom', k.num_atom, k.aa, 'are involved in a hydrogen bond bc they are at', dist(j, k), 'angstroms')
+                    #print('The atoms', j.num_atom, j.aa, 'and the atom', k.num_atom, k.aa, 'are involved in a hydrogen bond bc they are at', dist(j, k), 'angstroms')
                     bond.append(j)
                     bond.append(k)
                     bond.append(dist(j, k))
                     chose.append(bond)
             if j.typ_atom == "O" and k.typ_atom == "N":
                 if dist(j, k) < a:
-                    print('The atoms', k.num_atom, k.aa, 'and the atom', j.num_atom, j.aa, 'are involved in a hydrogen bond bc they are at', dist(j, k), 'angstroms')
+                    #print('The atoms', k.num_atom, k.aa, 'and the atom', j.num_atom, j.aa, 'are involved in a hydrogen bond bc they are at', dist(j, k), 'angstroms')
                     bond.append(k)
                     bond.append(j)
                     bond.append(dist(j, k))
