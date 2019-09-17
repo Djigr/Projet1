@@ -33,7 +33,8 @@ else:
 list = read(pdb)[0]
 print("The number of atoms is ",len(list),".")
 
-result = open("result.csv","w")
+filename = str(args.input.name)+"_PICresults.csv"
+result = open(filename,"w")
 result.write("Protein Interaction Calculator \n"+args.input.name+"\n")
 if args.disulfide == True:
     print("PONTS DISULFURES")
@@ -73,7 +74,7 @@ if args.hydrogen == True:
                i[1].aa + "," + i[0].chain + "\n"
         result.write(line)
         print(i[0].res_number, '(', i[0].aa, ')', 'et ', i[1].res_number, 'sont à une distance de ', i[2], 'angstroms.')
-print(args)
+print(args, "Results can be found in",filename)
 
 
 
