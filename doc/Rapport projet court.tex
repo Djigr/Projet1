@@ -1,0 +1,54 @@
+\documentclass[]{article}
+%opening
+\title{Short project report : Protein Interaction Calculator}
+\author{Diane DABIR MOGHADDAM}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{Introduction}
+PIC (Protein Interaction Calculator) is an open-source program using python3.7.
+The package, as well as the .yml file are available online.
+
+The program determines interactions within a protein, based on the informations contained in a .pdb of this protein.
+Implemented interactions are : disulphide bonds, hydrophobic interactions, ionic interactions and hydrogen bonds.
+More interactions will be added in the near future, such as aromatic-aromatic, aromatic-sulphure and cation-pi interactions.
+
+\subsection{Disulphide bonds}
+Disulphide bonds are the result of a covalent bond between the sulphurs of two cystein amino-acids in a protein.
+
+\subsection{Hydrophobic interactions}
+Hydrophobic interactions happen between similarly polarized residues.
+
+\subsection{Ionic interactions}
+
+\subsection{Hydrogen bonds}
+Hydrogen bonds are found in 3 different scenarios : between atoms of the main chain (thus constraining the secondary structures, helix and sheets), between atoms of the aminoacids' residues, and between the main chain and residues.
+\subsection{Main chain/main chain}
+
+\section{Material and Methods}
+\subsection{Description of the algorithm}
+The script command.py requires a PDB file as input, containing at the very least the full list of atoms in the protein, as well as their coordinates.
+The script acts as follows :
+\begin{itemize}
+	\item After input from the user, it parses the file and stocks each atom (and its characteristics) in a list.
+	\item Depending on the searches the user specified, it will run a parse for each individual search, eliminating atoms or amino-acids that do not have a role in the specified interaction.
+	\item The program then compares in this new list the distances between atoms. If the interaction respects the interactions's criteria and if the distance is in the range of what is expected for this type of interaction, the couple of atoms and the distance between them is stocked as a list in a list.
+\end{itemize}
+
+The results are then displayed in a CSV file.
+Each section is announced by a title, then each bond appears as a line precising the position, the type (as the 3-letter code) and the chain of both residues involved in the interaction.
+The distance of the interaction can be fetched for the hydrogen bonds.
+
+\section{Results}
+Multiple molecules were tested with the algorithm : 2eti and 6pa8 were used as test samples. 2eti is a small protein, enabling fast parsing and debugging, while 6pa8 is a homomeric macromolecule containing 4 chains, which presents at least one interaction of each type.
+
+\section{Conclusion}
+PIC is a promising tool providing a first glance at the interactions at the intraprotein level.
+
+\end{document}
