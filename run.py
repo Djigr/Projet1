@@ -11,7 +11,7 @@ if __name__ == "__main__":
     parser.add_argument('input',
                         nargs='?',
                         type=argparse.FileType('r'))
-    parser.add_argument('--disulfide', action="store_true", help='Calculate the number of disulfide bonds in the protein',
+    parser.add_argument('--disulfide', action="store_true", help='Calculate the number of disulphide bonds in the protein',
                         default=2.2)
     parser.add_argument('--hydrophobic', action="store_true",
                         help='Calculate the number of hydrophobic bonds in the protein', default = 5)
@@ -25,7 +25,7 @@ if __name__ == "__main__":
 
     print(args.input.name)
     if args.input.name.endswith('.pdb'):
-        print('The file is correct.')
+        print('The PDB file is correct.')
         pdb = args.input
     else:
         print('This is not a .pdb file, please provide one. The expected extension is .pdb.')
@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
 
     if args.disulfide == True:
-        print("COMPUTING DISULFIDE BONDS...")
+        print("COMPUTING DISULPHIDE BONDS...")
         disulfures = disulf(list)
         result.write("DISULPHIDE BRIDGES \n POSITION,RESIDUE,CHAIN, ,POSITION,RESIDUE,CHAIN\n")
         for i in disulfures:

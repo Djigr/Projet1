@@ -1,4 +1,5 @@
 \documentclass[]{article}
+\usepackage{siunitx}
 %opening
 \title{Short project report : Protein Interaction Calculator}
 \author{Diane DABIR MOGHADDAM}
@@ -7,29 +8,32 @@
 
 \maketitle
 
-\begin{abstract}
-
-\end{abstract}
 
 \section{Introduction}
 PIC (Protein Interaction Calculator) is an open-source program using python3.7.
-The package, as well as the .yml file are available online.
 
-The program determines interactions within a protein, based on the informations contained in a .pdb of this protein.
+The program determines interactions within a protein, based on the informations contained in a PDB file of this protein.
 Implemented interactions are : disulphide bonds, hydrophobic interactions, ionic interactions and hydrogen bonds.
 More interactions will be added in the near future, such as aromatic-aromatic, aromatic-sulphure and cation-pi interactions.
+Such interactions have a strong role in the secondary and tertiary structure of a protein, constraining helices and sheets, bonding different monomeres together, and constraining which parts of the protein chain will be exposed and thus available for inter-protein interactions (with an enzyme or a target, for example).
+The number of bonds will also affect how robust against environment changes (for example, a higher number of hydrogen bonds will heighten the temperature necessary to denaturate the whole protein).
+Assessing these interactions in a simple manner is therefore a crucial part of organic chemistry.
 
 \subsection{Disulphide bonds}
-Disulphide bonds are the result of a covalent bond between the sulphurs of two cystein amino-acids in a protein.
+Disulphide bonds are the result of a covalent bond between the sulphurs of two cystein amino-acids in a protein. They are detected by the program when the bond length is below 2.2\si{\angstrom}.
 
 \subsection{Hydrophobic interactions}
-Hydrophobic interactions happen between similarly polarized residues.
+Hydrophobic interactions happen between hydrophobic residues : Valin, Alanin, Leucin, Isoleucin, Methionine, Phenylalanin,Tryptophane, Prolin, Tyrosin.
+The distance has to be below 5\si{\angstrom}. 
 
 \subsection{Ionic interactions}
+Ionic interactions happen between charged residues. The program finds couple between positive (Asparagin, Glutamin) and negative (Lysin, Arginin, Histidin) residues which distance is inferior to 6\si{\angstrom}.
 
 \subsection{Hydrogen bonds}
 Hydrogen bonds are found in 3 different scenarios : between atoms of the main chain (thus constraining the secondary structures, helix and sheets), between atoms of the aminoacids' residues, and between the main chain and residues.
 \subsection{Main chain/main chain}
+As of today, only hydrogen bonds between residues of the main chain can be found.
+The distance between the acceptor and the donor of hydrogen must be inferior to 3.5\si{\angstrom}.
 
 \section{Material and Methods}
 \subsection{Description of the algorithm}
@@ -50,5 +54,34 @@ Multiple molecules were tested with the algorithm : 2eti and 6pa8 were used as t
 
 \section{Conclusion}
 PIC is a promising tool providing a first glance at the interactions at the intraprotein level.
+
+\newpage
+\section{Annexes}
+\subsection{Example of use}
+Quick start :
+\begin{center}\texttt{python3 run.py 6pa8.pdb --hydrophobic --disulfide --ionic}
+\end{center}
+For an optimal use of this program, please follow these steps :
+\begin{itemize}
+	\item Download the whole directory of the project, do not change the file tree
+	\item Install MiniConda (follow this documentation : https://docs.conda.io/en/latest/miniconda.html)
+	\item Import the environment from the \texttt{pic$\_$env.yml} file
+	\item Activate the \texttt{pic$\_$env} environment
+	\item In a terminal, in the main directory, type
+	 \begin{center}\texttt{python3 run.py YOURPDB.pdb --argument}
+	 \end{center}
+\end{itemize}
+\subsection{Future implementations}
+As this project confronted the author to their first real experience with OOP, the subject was not finished in its entirety, and priority was placed in creating a functional, documented and clean base code on which the other functions could be added on a later stage.
+Missing functions are : 
+\begin{itemize}
+	\item finding aromatic-aromatic interactions,
+	\item finding hydrogen bonds between the side chains and the main chain,
+	\item finding hydrogen bonds between side chains,
+	\item finding aromatic-sulphur interactions,
+	\item finding cation-π interactions,
+	\item applying each interaction research to different monomeres of a protein,
+	\item letting the user place the threshold for each interaction.
+\end{itemize}
 
 \end{document}

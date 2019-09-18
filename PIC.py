@@ -41,12 +41,12 @@ class Atom(namedtuple('ligne_Atom',
         -aa : displays in which amino-acid the atom is involved
         -chain : displays in which chain the atom is involved
         -res_number : displays the ID of the residue the atom is involved with
-        -ACha : chépu
+        -ACha : irrelevant
         -x, y, z : coordinates at which the atom is found
-        -occupancy : chépu
-        -temp : chépu
+        -occupancy : irrelevant
+        -temp : irrelevant
         -element : element from the Mendeleiev table the atom is of
-        -charge : chépu"""
+        -charge : irrelevant"""
     #ah qu'il est beau le docstring, accessible avec machin.__doc__
     pass
 
@@ -128,7 +128,7 @@ def hydroph(list):
             truc.append(i)
     chose.append(truc)
 
-    print('Ça nous fait ',len(chose),'acides amines dans la prot qui sont hydrophobes.')
+    #print('Ça nous fait ',len(chose),'acides amines dans la prot qui sont hydrophobes.')
     fach = open("chose.csv","w")
     for i in chose:
         for j in i:
