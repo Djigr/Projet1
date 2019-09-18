@@ -1,5 +1,0 @@
-name: projetcourtenv
-channels:
-  - defaults
-prefix: /home/didiraptor/miniconda3/envs/projetcourtenv
-
